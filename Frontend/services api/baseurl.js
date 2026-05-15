@@ -1,1 +1,1 @@
-export const Baseurl = 'https://chat-app-nine-gray-73.vercel.app/';
+export const Baseurl = 'https://chat-app-nine-gray-73.vercel.app';
