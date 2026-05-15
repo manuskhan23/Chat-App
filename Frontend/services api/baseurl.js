@@ -1,1 +1,1 @@
-export const Baseurl = import.meta.env.VITE_HOSTED_PORT || 'http://localhost:5001';
+export const Baseurl = 'https://chat-app-nine-gray-73.vercel.app/';
