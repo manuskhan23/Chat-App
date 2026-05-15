@@ -1,5 +1,1 @@
-import dotenv from 'dotenv';
-
-dotenv.config();
-
-export const  Baseurl = process.env.VITE_HOSTED_PORT;
+export const Baseurl = import.meta.env.VITE_HOSTED_PORT || 'http://localhost:5001';
