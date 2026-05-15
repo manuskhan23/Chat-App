@@ -16,13 +16,12 @@ const NODE_ENV = process.env.NODE_ENV || 'development'; // Default to 'developme
 const app = express();
 
 // db connection 
-DbCon();
+DbCon().catch(err => {
+  console.error("Failed to connect to MongoDB:", err);
+});
 
 app.use(express.json());
 app.use(cors());
-
-// Serve static files from the 'public' directory
-app.use('/images', express.static(path.join(path.resolve(), 'public/images')));
 
 // Debug middleware to log all incoming requests
 app.use((req, res, next) => {

@@ -5,11 +5,10 @@ import ConversationModel from "../models/Converstion.js"
 export const Register=async(req,res)=>{
      try {
         const {name,email,password}=req.body
-          if (!name || !email || !password || !req.file) {
-            return res.status(400).json({success:false,message:`${
-                
-                !name ? "Name" : !email ? "Email" : !password ? "Password" : !req.file ? 'Profile is required':""} is Required` })
-          }
+        if (!name || !email || !password || !req.file) {
+            const missing = !name ? "Name" : !email ? "Email" : !password ? "Password" : "Profile image";
+            return res.status(400).json({ success: false, message: `${missing} is required` });
+        }
           console.log('req.file',req.file)
           
         const normalizedEmail = email.toLowerCase().trim();
@@ -20,9 +19,8 @@ export const Register=async(req,res)=>{
         if(existingUser){
             return res.status(400).json({success:false,message:"User already exists"})
         }
-        const baseUrl = `${req.protocol}://${req.get('host')}`;
        
-        const imagePath = `${baseUrl}/images/${req.file.filename}`;
+        const imagePath = `data:${req.file.mimetype};base64,${req.file.buffer.toString('base64')}`;
         const hashedPassword=await bcryptjs.hash(password,10)
         const newUser=new UserModel({
             name,
@@ -33,6 +31,7 @@ export const Register=async(req,res)=>{
         await newUser.save()
         res.status(200).json({success:true,message:"User registered successfully",user:newUser})
      } catch (error) {
+        console.error("Registration Error:", error);
         res.status(500).json({success:false,message:error.message})
      }
 }
