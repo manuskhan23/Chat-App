@@ -21,7 +21,12 @@ DbCon().catch(err => {
 });
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: ["https://chat-app-baem.vercel.app"],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  credentials: true,
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
 
 // Debug middleware to log all incoming requests
 app.use((req, res, next) => {
