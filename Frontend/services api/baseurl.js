@@ -1,4 +1,5 @@
+import dotenv from 'dotenv';
 
+dotenv.config();
 
-//  export const  Baseurl = 'http://localhost:4000'
-export const  Baseurl = 'http://localhost:5001'
+export const  Baseurl = process.env.HOSTED_PORT;
